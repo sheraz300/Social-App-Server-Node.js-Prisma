@@ -1,0 +1,29 @@
+{
+  "name": "social-app-server-node.js-prisma",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "main": "server.js",
+  "devDependencies": {
+    "nodemon": "^3.1.9"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "server": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sheraz300/Social-App-Server-Node.js-Prisma.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sheraz300/Social-App-Server-Node.js-Prisma/issues"
+  },
+  "homepage": "https://github.com/sheraz300/Social-App-Server-Node.js-Prisma#readme",
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2"
+  }
+}

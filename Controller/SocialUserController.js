@@ -72,3 +72,18 @@ export const fetchAllSocialUsers =async (req, res)=>{
         data:users
     })
 }
+
+// fetch single user
+export const fetchSingleSocialUser =async (req, res)=>{
+    const userId = req.params.id
+    const user = await prisma.socialUser.findFirst({
+        where:{
+            id:Number(userId)
+            }
+            })
+            return res.status(200).json({
+                status:200,
+                message:"User fetched successfully",
+                data:user
+            })
+}

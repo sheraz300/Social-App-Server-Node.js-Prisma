@@ -62,3 +62,13 @@ export const updateSocialUser =async (req, res)=>{
     })
     
 }
+
+// fetch all social users
+export const fetchAllSocialUsers =async (req, res)=>{
+    const users = await prisma.socialUser.findMany()
+    return res.status(200).json({
+        status:200,
+        message:"Users fetched successfully",
+        data:users
+    })
+}

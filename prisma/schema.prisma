@@ -21,3 +21,45 @@ model SocialUser{
   created_at DateTime @default(now())
 
 }
+
+
+// model category {
+//   id       Int  @id @default(autoincrement())
+//   name String
+//   created_at DateTime @default(now())
+// }
+
+// model sub_category {
+//   id       Int  @id @default(autoincrement())
+//   name String
+//   category_id Int
+//   created_at DateTime @default(now())
+// }
+
+// model product {
+//   id       Int  @id @default(autoincrement())
+//   name String
+//   image String
+//   link String
+//   category_id Int
+//   sub_category_id Int
+//   price Float
+//   discounted_id Float
+//   rating Float
+//   number_of_ratings Float
+//   actual_price Float
+//   created_at DateTime @default(now())
+// }
+
+model Product {
+  id            Int     @id @default(autoincrement())
+  name          String
+  mainCategory  String
+  subCategory   String
+  image         String
+  link          String
+  ratings       Float
+  noOfRatings   Int
+  discountPrice Float
+  actualPrice   Float
+}

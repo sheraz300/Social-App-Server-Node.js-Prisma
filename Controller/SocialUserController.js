@@ -1,4 +1,7 @@
 import prisma from "../DB/db.config.js";
+import fs from 'fs';
+import csvParser from "csv-parser";
+import { Readable } from "stream";
 
 // create Social User
 export const createSocialUser = async (req , res) => {
@@ -87,3 +90,39 @@ export const fetchSingleSocialUser =async (req, res)=>{
                 data:user
             })
 }
+
+export const uploadCSV = async (req, res) => {
+    if (!req.file) {
+      return res.status(400).json({ message: "CSV file is required" });
+    }
+  
+    const results = [];
+  
+    // Convert Buffer to Stream and parse CSV
+    Readable.from(req.file.buffer.toString()) 
+      .pipe(csvParser())
+      .on("data", (data) => {
+        results.push({
+          name: data.name,
+          mainCategory: data.main_category,
+          subCategory: data.sub_category,
+          image: data.image,
+          link: data.link,
+          ratings: parseFloat(data.ratings) || 0,
+          noOfRatings: parseInt(data.no_of_ratings) || 0,
+          discountPrice: parseFloat(data.discount_price) || 0,
+          actualPrice: parseFloat(data.actual_price) || 0,
+        });
+      })
+      .on("end", async () => {
+        try {
+          await prisma.product.createMany({ data: results });
+          res.json({ status: 201, message: "CSV data stored successfully" });
+        } catch (error) {
+          res.status(500).json({ message: "Database error", details: error.message });
+        }
+      })
+      .on("error", (error) => {
+        res.status(500).json({ message: "CSV parsing error", details: error.message });
+      });
+  };
